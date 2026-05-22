@@ -1,0 +1,32 @@
+{
+  "title": "ttyd-tmux-cf: Persistent web terminal gated by Cloudflare Zero Trust",
+  "description": "A reproducible runbook to deploy a persistent web terminal (ttyd + tmux) on macOS, gated by Cloudflare Zero Trust (email OTP) with Nerd Font glyphs served from Cloudflare R2. Designed for single-prompt automated setup via Claude Code, while remaining a readable runbook for manual execution.",
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "keywords": [
+    "ttyd",
+    "tmux",
+    "cloudflare-zero-trust",
+    "cloudflare-tunnel",
+    "cloudflare-r2",
+    "web-terminal",
+    "macos",
+    "launchd",
+    "claude-code",
+    "nerd-fonts"
+  ],
+  "creators": [
+    {
+      "name": "Lin, Hsieh-Ting",
+      "orcid": "0009-0002-3974-4528"
+    }
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/htlin222/ttyd-tmux-cf",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}

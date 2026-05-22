@@ -1,0 +1,80 @@
+name: lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  python:
+    name: Python (compile + ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile
+        run: python -m py_compile scripts/build-index.py
+      - name: Ruff
+        run: pipx run ruff check scripts/
+
+  data:
+    name: JSON + YAML validity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pyyaml
+        run: pip install pyyaml
+      - name: JSON files
+        run: |
+          for f in $(git ls-files '*.json'); do
+            echo "::group::$f"
+            python -m json.tool "$f" > /dev/null
+            echo "::endgroup::"
+          done
+      - name: YAML files
+        run: |
+          for f in $(git ls-files '*.yml' '*.yaml' 'CITATION.cff' '.zenodo.json'); do
+            [ -e "$f" ] || continue
+            case "$f" in *.json) continue;; esac
+            echo "::group::$f"
+            python -c "import sys,yaml; yaml.safe_load(open(sys.argv[1]))" "$f"
+            echo "::endgroup::"
+          done
+
+  cff:
+    name: CITATION.cff schema
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dieghernan/cff-validator@v3
+
+  shellcheck:
+    name: Shellcheck (CLAUDE.md blocks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract ```sh blocks from CLAUDE.md
+        run: |
+          mkdir -p .ci/shell
+          python3 - <<'PY'
+          import re, pathlib
+          src = pathlib.Path('CLAUDE.md').read_text()
+          # Match fenced bash/sh blocks; allow either `sh or `bash
+          blocks = re.findall(r'```(?:sh|bash)\n(.*?)```', src, re.DOTALL)
+          for i, b in enumerate(blocks):
+              p = pathlib.Path(f'.ci/shell/block_{i:02d}.sh')
+              # Permissive shebang so heredocs and inline python don't trip
+              # shellcheck false-positives on style.
+              p.write_text('#!/usr/bin/env bash\n# shellcheck disable=SC2086,SC2016\n' + b)
+          print(f'extracted {len(blocks)} shell blocks')
+          PY
+          ls -la .ci/shell/
+      - uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: '.ci/shell'
+          severity: warning

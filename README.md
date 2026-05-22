@@ -1,6 +1,7 @@
 # ttyd-tmux-cf
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![CI](https://github.com/htlin222/ttyd-tmux-cf/actions/workflows/lint.yml/badge.svg)](https://github.com/htlin222/ttyd-tmux-cf/actions/workflows/lint.yml)
 [![Platform: macOS](https://img.shields.io/badge/Platform-macOS-000000?logo=apple&logoColor=white)](https://www.apple.com/macos/)
 [![Cloudflare Zero Trust](https://img.shields.io/badge/Cloudflare-Zero%20Trust-F38020?logo=cloudflare&logoColor=white)](https://www.cloudflare.com/zero-trust/)
 [![Cloudflare R2](https://img.shields.io/badge/Cloudflare-R2-F38020?logo=cloudflare&logoColor=white)](https://developers.cloudflare.com/r2/)
