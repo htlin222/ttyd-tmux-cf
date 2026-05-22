@@ -1,0 +1,12 @@
+# Add the `term.*` block BEFORE the catch-all `http_status:404` in your
+# ~/.cloudflared/config.yml. Example final shape:
+#
+# tunnel: <your-tunnel-uuid>
+# credentials-file: /Users/you/.cloudflared/<your-tunnel-uuid>.json
+#
+# ingress:
+#   - hostname: ssh.example.com
+#     service: ssh://localhost:22
+#   - hostname: term.example.com           # ← add this block
+#     service: http://localhost:7681
+#   - service: http_status:404

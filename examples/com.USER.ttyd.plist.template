@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>@@LABEL@@</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/ttyd</string>
+    <string>-p</string><string>@@TTYD_PORT@@</string>
+    <string>-i</string><string>127.0.0.1</string>
+    <string>-W</string>
+    <string>-I</string><string>@@INDEX_PATH@@</string>
+    <string>-t</string><string>fontSize=14</string>
+    <string>-t</string><string>titleFixed=@@TITLE@@</string>
+    <string>-t</string><string>fontFamily=@@FONT_FAMILY@@, monospace</string>
+    <string>/opt/homebrew/bin/tmux</string>
+    <string>new-session</string>
+    <string>-A</string>
+    <string>-s</string>
+    <string>@@TMUX_SESSION@@</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+    <key>LANG</key>
+    <string>en_US.UTF-8</string>
+  </dict>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>StandardOutPath</key><string>/tmp/ttyd.out.log</string>
+  <key>StandardErrorPath</key><string>/tmp/ttyd.err.log</string>
+  <key>WorkingDirectory</key><string>@@HOME@@</string>
+</dict>
+</plist>

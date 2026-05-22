@@ -1,0 +1,12 @@
+.env
+*.log
+.DS_Store
+
+# Working font assets — regenerated from source TTFs.
+fonts/*.woff2
+fonts/*.ttf
+.config/
+
+# Editor / OS junk
+.vscode/
+*.swp
