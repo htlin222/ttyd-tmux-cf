@@ -9,7 +9,15 @@ Usage:
 If ttyd isn't already listening on --ttyd-port, the script briefly starts a
 throwaway ttyd (without -I) to harvest its bundled HTML, then shuts it down.
 """
-import argparse, os, pathlib, signal, socket, subprocess, sys, time, urllib.request
+import argparse
+import os
+import pathlib
+import signal
+import socket
+import subprocess
+import sys
+import time
+import urllib.request
 
 
 def ttyd_running(port: int) -> bool:

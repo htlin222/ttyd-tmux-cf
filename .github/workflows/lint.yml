@@ -70,7 +70,7 @@ jobs:
               p = pathlib.Path(f'.ci/shell/block_{i:02d}.sh')
               # Permissive shebang so heredocs and inline python don't trip
               # shellcheck false-positives on style.
-              p.write_text('#!/usr/bin/env bash\n# shellcheck disable=SC2086,SC2016\n' + b)
+              p.write_text('#!/usr/bin/env bash\n# shellcheck disable=SC2086,SC2016,SC2034\n' + b)
           print(f'extracted {len(blocks)} shell blocks')
           PY
           ls -la .ci/shell/
