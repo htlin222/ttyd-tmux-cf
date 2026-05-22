@@ -1,5 +1,20 @@
 # ttyd-tmux-cf
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Platform: macOS](https://img.shields.io/badge/Platform-macOS-000000?logo=apple&logoColor=white)](https://www.apple.com/macos/)
+[![Cloudflare Zero Trust](https://img.shields.io/badge/Cloudflare-Zero%20Trust-F38020?logo=cloudflare&logoColor=white)](https://www.cloudflare.com/zero-trust/)
+[![Cloudflare R2](https://img.shields.io/badge/Cloudflare-R2-F38020?logo=cloudflare&logoColor=white)](https://developers.cloudflare.com/r2/)
+[![ttyd](https://img.shields.io/badge/ttyd-1.7%2B-181717.svg?logo=gnometerminal&logoColor=white)](https://github.com/tsl0922/ttyd)
+[![tmux](https://img.shields.io/badge/tmux-1BB91F.svg?logo=tmux&logoColor=white)](https://github.com/tmux/tmux)
+[![Python](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB.svg?logo=python&logoColor=white)](https://www.python.org)
+[![Shell: bash](https://img.shields.io/badge/Shell-bash-4EAA25?logo=gnubash&logoColor=white)](https://www.gnu.org/software/bash/)
+[![Claude Code Ready](https://img.shields.io/badge/Claude%20Code-Ready-D97757?logo=anthropic&logoColor=white)](CLAUDE.md)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/htlin222/ttyd-tmux-cf/pulls)
+[![GitHub stars](https://img.shields.io/github/stars/htlin222/ttyd-tmux-cf?style=social)](https://github.com/htlin222/ttyd-tmux-cf/stargazers)
+[![GitHub last commit](https://img.shields.io/github/last-commit/htlin222/ttyd-tmux-cf)](https://github.com/htlin222/ttyd-tmux-cf/commits/main)
+[![Repo size](https://img.shields.io/github/repo-size/htlin222/ttyd-tmux-cf)](https://github.com/htlin222/ttyd-tmux-cf)
+[![Issues](https://img.shields.io/github/issues/htlin222/ttyd-tmux-cf)](https://github.com/htlin222/ttyd-tmux-cf/issues)
+
 Deploy a **persistent web terminal** (ttyd + tmux) on a Mac, gated by **Cloudflare Zero Trust** so you can log in from any browser with email OTP. Nerd Font glyphs served from **Cloudflare R2** for snappy loads on every device.
 
 ```
@@ -94,3 +109,37 @@ launchctl kickstart -k "gui/$(id -u)/com.cloudflare.cloudflared.<tunnel-label>"
 - Cloudflare Access enforces identity before the tunnel forwards. Defense in depth: even without Access, the tunnel hostname won't resolve directly to anything but the Cloudflare edge.
 - Don't commit `.env`. `.gitignore` already excludes it.
 - Revoke the API token (`https://dash.cloudflare.com/profile/api-tokens`) once setup is done; it's only needed during deploy.
+
+## Citation
+
+If you use this project, please cite it:
+
+**BibTeX:**
+
+```bibtex
+@software{lin2026ttydtmuxcf,
+  author  = {Lin, Hsieh-Ting},
+  title   = {ttyd-tmux-cf: Persistent web terminal gated by Cloudflare Zero Trust},
+  year    = {2026},
+  url     = {https://github.com/htlin222/ttyd-tmux-cf},
+  version = {0.1.0}
+}
+```
+
+<details>
+<summary>AMA format</summary>
+
+Lin HT. ttyd-tmux-cf: Persistent web terminal gated by Cloudflare Zero Trust. Published online 2026. https://github.com/htlin222/ttyd-tmux-cf
+
+</details>
+
+<details>
+<summary>APA format</summary>
+
+Lin, H.-T. (2026). *ttyd-tmux-cf: Persistent web terminal gated by Cloudflare Zero Trust* (Version 0.1.0) [Computer software]. https://github.com/htlin222/ttyd-tmux-cf
+
+</details>
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
