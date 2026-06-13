@@ -200,6 +200,15 @@ python3 scripts/build-index.py \
 
 The script briefly starts ttyd without `-I` on a throwaway port, fetches its built-in HTML, injects the `<style>@font-face>` + `<link rel=preload>` block, writes to `--out`, and shuts down the throwaway ttyd.
 
+ttyd launches a **login shell** (`$LOGIN_SHELL -l`, default `$SHELL`), not tmux directly — so the browser session drops you at a normal prompt and you choose whether/which tmux to attach. To get the old "always land in a persistent tmux" behaviour, add this to your shell rc (e.g. `~/.zprofile`), which auto-attaches only inside ttyd and still lets you detach back to a plain shell:
+
+```sh
+# auto-attach a persistent tmux session inside the web terminal
+if [ -n "$TTYD_VERSION" ] && [ -z "$TMUX" ]; then
+  tmux new-session -A -s "${TMUX_SESSION:-web}"
+fi
+```
+
 Render the LaunchAgent plist from the template and load it:
 
 ```sh
@@ -210,7 +219,7 @@ sed \
   -e "s|@@TTYD_PORT@@|${TTYD_PORT:-7681}|g" \
   -e "s|@@INDEX_PATH@@|$HOME/.config/ttyd/index.html|g" \
   -e "s|@@FONT_FAMILY@@|${FONT_FAMILY_DISPLAY_NAME:-JetBrainsMono Nerd Font}|g" \
-  -e "s|@@TMUX_SESSION@@|${TMUX_SESSION:-web}|g" \
+  -e "s|@@LOGIN_SHELL@@|${LOGIN_SHELL:-${SHELL:-/bin/zsh}}|g" \
   -e "s|@@HOME@@|$HOME|g" \
   -e "s|@@TITLE@@|${HOSTNAME%%.*}|g" \
   examples/com.USER.ttyd.plist.template > "$PLIST"
@@ -247,7 +256,7 @@ curl -sI -X OPTIONS \
 for i in 1 2; do curl -sI "https://$FONTS_HOSTNAME/jbmono-nerd-regular.woff2" | grep -i cf-cache-status; done
 ```
 
-Report the final URL to the user with: "Open `https://$HOSTNAME` in any browser → email OTP to `$ALLOWED_EMAIL` → tmux session `${TMUX_SESSION:-web}` attaches. Detach with your tmux prefix + `d`."
+Report the final URL to the user with: "Open `https://$HOSTNAME` in any browser → email OTP to `$ALLOWED_EMAIL` → you land in a login shell. Run `tmux new -A -s ${TMUX_SESSION:-web}` to attach a persistent session (detach with your tmux prefix + `d`), or just use the shell directly."
 
 Remind the user to **revoke the API token** at `https://dash.cloudflare.com/profile/api-tokens` once they've confirmed login works, and offer to delete the local `.env`.
 
@@ -288,7 +297,9 @@ After=network-online.target
 [Service]
 ExecStart=/usr/local/bin/ttyd -p 7681 -i 127.0.0.1 -W -I %h/.config/ttyd/index.html \
   -t fontSize=14 -t fontFamily="JetBrainsMono Nerd Font, monospace" \
-  /usr/bin/tmux new-session -A -s web
+  /bin/bash -l
+# Lands you in a login shell; run `tmux new -A -s web` yourself, or add the
+# auto-attach snippet from Phase 6 to your shell rc.
 Restart=always
 [Install]
 WantedBy=default.target
