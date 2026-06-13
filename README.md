@@ -29,7 +29,7 @@ browser ── HTTPS ──> term.example.com (Cloudflare edge)
                 http://127.0.0.1:7681  (ttyd, loopback only)
                       │
                       ▼
-                tmux new-session -A -s web   (persistent session)
+                login shell ($SHELL -l)   (run tmux yourself for a persistent session)
 
 Nerd Font glyphs load in parallel from R2:
   fonts.example.com/jbmono-nerd-{regular,bold}.woff2   (CDN-cached, immutable)
@@ -37,7 +37,7 @@ Nerd Font glyphs load in parallel from R2:
 
 ## Why
 
-- Open any browser, OTP login, drop into a tmux session that survives reboots and reconnects.
+- Open any browser, OTP login, land in a login shell — run `tmux new -A -s web` for a session that survives reboots and reconnects, or just use the shell directly.
 - No SSH key juggling on the client. Cloudflare handles auth at the edge.
 - Works on phones, tablets, borrowed laptops.
 

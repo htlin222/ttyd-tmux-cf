@@ -15,11 +15,8 @@
     <string>-t</string><string>fontSize=14</string>
     <string>-t</string><string>titleFixed=@@TITLE@@</string>
     <string>-t</string><string>fontFamily=@@FONT_FAMILY@@, monospace</string>
-    <string>/opt/homebrew/bin/tmux</string>
-    <string>new-session</string>
-    <string>-A</string>
-    <string>-s</string>
-    <string>@@TMUX_SESSION@@</string>
+    <string>@@LOGIN_SHELL@@</string>
+    <string>-l</string>
   </array>
   <key>EnvironmentVariables</key>
   <dict>
